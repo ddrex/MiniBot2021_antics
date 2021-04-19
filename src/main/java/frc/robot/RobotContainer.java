@@ -207,8 +207,9 @@ public class RobotContainer {
         .whenInactive(new PrintCommand("Button A Released"));
 
     // Setup SmartDashboard options
-    m_chooser.setDefaultOption("Ramsete Trajectory", generateRamseteCommand());
-    m_chooser.addOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
+    //m_chooser.setDefaultOption("Ramsete Trajectory", generateRamseteCommand());
+    m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
+    //m_chooser.addOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
     
     SmartDashboard.putData(m_chooser);
