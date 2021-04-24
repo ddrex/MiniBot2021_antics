@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveDistance extends CommandBase {
@@ -38,6 +39,10 @@ public class DriveDistance extends CommandBase {
   @Override
   public void execute() {
     m_drive.arcadeDrive(m_speed, 0);
+    SmartDashboard.putNumber(">>Auto Left Drive Encoder", m_drive.getLeftEncoderCount());
+    SmartDashboard.putNumber(">>Auto Right Drive Encoder", m_drive.getRightEncoderCount());
+    SmartDashboard.putNumber(">>Auto Left Drive Distance", m_drive.getLeftDistanceMeter());
+    SmartDashboard.putNumber(">>Auto Right Drive Distance", m_drive.getRightDistanceMeter());
   }
 
   // Called once the command ends or is interrupted.

@@ -21,26 +21,46 @@ public class AutonomousDistance extends SequentialCommandGroup {
         new TurnDegrees(-0.6, 1.35, drivetrain),
         new DriveDistance(0.8, 0.23, drivetrain),
        
-        new TurnDegrees(-0.6, 1.15, drivetrain),
-        new DriveDistance(-0.6, 0.65, drivetrain),
-        new TurnDegrees(-0.6, 0.99, drivetrain),
+        new TurnDegrees(-0.6, 1.2, drivetrain),//1.15
+        new DriveDistance(-0.6, 0.75, drivetrain),//0.65
+        new TurnDegrees(-0.6, 1.1, drivetrain),//0.99
         new DriveDistance(-0.6, 0.2, drivetrain),
-        new TurnDegrees(-0.6, 2.1, drivetrain),
+        new TurnDegrees(-0.6, 1.85, drivetrain),//2.1
         new DriveDistance(-0.8, 0.60, drivetrain),
        
-        new TurnDegrees(-0.6, 1.0, drivetrain),
+        //new TurnDegrees(-0.6, 0.8, drivetrain),//1
         new DriveDistance(0.6, 0.70, drivetrain),
         new TurnDegrees(-0.6, 1.3, drivetrain),
         new DriveDistance(0.6, 0.45, drivetrain), 
-        new TurnDegrees(-0.6, 0.9, drivetrain),
+        new TurnDegrees(-0.6, 0.9, drivetrain),//0.9
         new DriveDistance(0.8, 0.50, drivetrain),
         
         new DriveDistance(-0.6, 0.25, drivetrain),
         new TurnDegrees(-0.6, 1.65, drivetrain),
-        new DriveDistance(-0.6, 0.55, drivetrain));
+        new DriveDistance(-0.6, 0.4, drivetrain));//0.55
 
-
-
+        //Good auto, slightly used batteries
+/* new DriveDistance(0.6, 0.3, drivetrain),
+        new TurnDegrees(-0.6, 1.35, drivetrain),
+        new DriveDistance(0.8, 0.23, drivetrain),
+       
+        new TurnDegrees(-0.6, 1.2, drivetrain),//1.15
+        new DriveDistance(-0.6, 0.75, drivetrain),//0.65
+        new TurnDegrees(-0.6, 1.1, drivetrain),//0.99
+        new DriveDistance(-0.6, 0.2, drivetrain),
+        new TurnDegrees(-0.6, 1.85, drivetrain),//2.1
+        new DriveDistance(-0.8, 0.60, drivetrain),
+       
+        //new TurnDegrees(-0.6, 0.8, drivetrain),//1
+        new DriveDistance(0.6, 0.70, drivetrain),
+        new TurnDegrees(-0.6, 1.3, drivetrain),
+        new DriveDistance(0.6, 0.45, drivetrain), 
+        new TurnDegrees(-0.6, 0.9, drivetrain),//0.9
+        new DriveDistance(0.8, 0.50, drivetrain),
+        
+        new DriveDistance(-0.6, 0.25, drivetrain),
+        new TurnDegrees(-0.6, 1.65, drivetrain),
+        new DriveDistance(-0.6, 0.4, drivetrain));//0.55*/
 
   }
 }
