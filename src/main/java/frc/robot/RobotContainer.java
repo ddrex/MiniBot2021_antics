@@ -213,6 +213,10 @@ public class RobotContainer {
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
     
     SmartDashboard.putData(m_chooser);
+   // SmartDashboard.putNumber(">> Left Drive Encoder", m_drivetrain.getLeftEncoderCount());
+   // SmartDashboard.putNumber(">> Right Drive Encoder", m_drivetrain.getRightEncoderCount());
+   // SmartDashboard.putNumber(">> Left Drive Distance", m_drivetrain.getLeftDistanceMeter());
+   // SmartDashboard.putNumber(">> Right Drive Distance", m_drivetrain.getRightDistanceMeter());
   }
 
   /**
