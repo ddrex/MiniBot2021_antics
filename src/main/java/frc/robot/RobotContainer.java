@@ -161,8 +161,29 @@ public class RobotContainer {
     
     //******************* END COURSE 1 *********************
 
+//Start Course 3
+Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
+       // Start at the origin facing the +X direction
+        new Pose2d(0, 0, new Rotation2d(0)),
+       List.of(
+         new Translation2d((.31),(0)),   //foward a bit
+         new Translation2d((.33),(.4)), //grabbing ball
+         new Translation2d((.34),(0)), //gowing down
+         new Translation2d((.34),(-.27)), //gowing down
+      //   new Translation2d((.6,(-.38)), //gowing down
+         new Translation2d((.65),(-.34)), //gowing down
+         new Translation2d((.67),(-.36)) //lining up to 2nd ball
+         //new Translation2d((1.04),(.43)), //grabing ball
+         //new Translation2d((1.04),(-.45)), //back down
+         //new Translation2d((1.54),(-.45)), //lining up
+         //new Translation2d((1.54),(.45)), //grabbing ball
+         //new Translation2d((1.54),(0)) //line up to finish
+        ),
+      new Pose2d(((.68)), (.4), new Rotation2d(Math.PI/1)), //finish course 3
+      config);
+
     // Set Trejectory to Use for Autonomous Run
-    Trajectory exampleTrajectory = exampleTrajectory2;
+    Trajectory exampleTrajectory = exampleTrajectory3;
 
 
     RamseteCommand ramseteCommand = new RamseteCommand(
@@ -172,8 +193,8 @@ public class RobotContainer {
         new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter, DriveConstants.kaVoltSecondsSquaredPerMeter),
         DriveConstants.kDriveKinematics,
         m_drivetrain::getWheelSpeeds,
-        new PIDController(DriveConstants.kPDriveVel, 0, 0),
-        new PIDController(DriveConstants.kPDriveVel, 0, 0),
+        new PIDController(DriveConstants.kPDriveVelLeft, 0, 0),
+        new PIDController(DriveConstants.kPDriveVelRight, 0, 0),
         m_drivetrain::tankDriveVolts,
         m_drivetrain);
 
@@ -208,6 +229,7 @@ public class RobotContainer {
 
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Ramsete Trajectory", generateRamseteCommand());
+    //m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
     
