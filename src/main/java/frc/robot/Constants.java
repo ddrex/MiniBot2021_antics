@@ -26,12 +26,12 @@ public final class Constants {
     public static final double kPDriveVelLeft = 0.105;
 
     public static final double kTrackwidthMeters = 0.142072613;
-    public static final DifferentialDriveKinematics kDriveKinematics =
+    public static final DifferentialDriveKinematics kDriveKinematics = 
         new DifferentialDriveKinematics(kTrackwidthMeters);
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 1;  //.8
+    public static final double kMaxSpeedMetersPerSecond = .8;  //.8
     public static final double kMaxAccelerationMetersPerSecondSquared = 0.8;
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
