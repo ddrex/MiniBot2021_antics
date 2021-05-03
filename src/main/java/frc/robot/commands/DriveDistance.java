@@ -49,6 +49,9 @@ public class DriveDistance extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drive.arcadeDrive(0, 0);
+    System.out.print("\nSpeed: " + m_speed + " Distance: " + m_distance + "\n");
+    System.out.print("Left Distance: " + m_drive.getLeftDistanceMeter() + "\n");
+    System.out.print("Right Distance: " + m_drive.getRightDistanceMeter() + "\n");
   }
 
   // Returns true when the command should end.

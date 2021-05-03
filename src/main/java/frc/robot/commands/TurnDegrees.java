@@ -45,6 +45,12 @@ public class TurnDegrees extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_drive.arcadeDrive(0, 0);
+    System.out.print("\nSpeed: " + m_speed + " Degrees: " + m_degrees + "\n");
+    System.out.print("Turn Left Distance: " + m_drive.getLeftDistanceMeter() + "\n");
+    System.out.print("Turn Right Distance: " + m_drive.getRightDistanceMeter() + "\n");
+    System.out.print("Gyro Angle X: " + m_drive.getGyroAngleX() + "\n");
+    System.out.print("Gyro Angle Y: " + m_drive.getGyroAngleY() + "\n");
+    System.out.print("Gyro Angle Z: " + m_drive.getGyroAngleZ() + "\n");
   }
 
   // Returns true when the command should end.
