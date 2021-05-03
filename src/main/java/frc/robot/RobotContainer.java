@@ -100,86 +100,24 @@ public class RobotContainer {
     // to deal with for the Romi), you can use the () method
 
     
-    //******************* START COURSE 2 *********************
+    //******************* START COURSE 3 *********************
      
-      Trajectory exampleTrajectory2 = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(
-
-            new Translation2d((0.3302),(0)), 
-            new  Translation2d((0.4),(0.25)),
-            new Translation2d((0.76),(0.24)),
-            new Translation2d((1),(0.23)),
-            new Translation2d((1.5),(0.15)),
-            //new Translation2d((1.5),(.2)),
-            new Translation2d((1.5),(-.2)),
-            new Translation2d((1.8),(.1)),
-            new Translation2d((1.9),(0.35)),
-            new Translation2d((1.6),(0.36)),
-            new Translation2d((1.53),(.26)),
-            new Translation2d((1.46),(.1)),
-            new Translation2d((.6),(.3)),
-            new Translation2d((.3),(.32)),
-           new Translation2d((.3),(.34)),
-           new Translation2d((.3),(.4)),
-           new Translation2d((.3),(.43)),
-           new Translation2d((.3),(.45)),
-           new Translation2d((.15),(.45))
-           ),
-         new Pose2d(((-.08)), (.45), new Rotation2d(Math.PI/1)),
-        config);
-
-    
-    //******************* END COURSE 2 *********************
-  
-
-    //******************* START COURSE 1 *********************
-    
-    Trajectory exampleTrajectory1 = TrajectoryGenerator.generateTrajectory(
-       // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-       List.of(
-         new Translation2d((.84),(-.18)),
-         new Translation2d((.78),(-.35)),  // changed from .4
-         new Translation2d((.7),(-.4)),
-         new Translation2d((.5),(0)),
-         new Translation2d((1),(0)),
-         new Translation2d((1.3),(0)),
-         new Translation2d((1.5),(0)),
-         new Translation2d((1.55),(.4)),    
-         new Translation2d((1.55),(.5)),
-         new Translation2d((1),(.3)),
-         new Translation2d((1),(-.3)),
-         new Translation2d((1.3),(0)),
-         new Translation2d((1.9),(.1)),
-         new Translation2d((1.8),(.3))
-         //new Translation2d((.5),(-.6))
-        ),
-      new Pose2d(((0)), (-.6), new Rotation2d(Math.PI/1)),
-      config);
-    
-    //******************* END COURSE 1 *********************
-
     //Start Course 3
 Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
   // Start at the origin facing the +X direction
    new Pose2d(0, 0, new Rotation2d(0)),
   List.of(
     new Translation2d((.31),(0)),   //foward a bit
-    new Translation2d((.33),(.4)), //grabbing ball
-    new Translation2d((.34),(0)), //gowing down
-    new Translation2d((.34),(-.27)), //gowing down
- //   new Translation2d((.6,(-.38)), //gowing down
-    new Translation2d((.65),(-.34)), //gowing down
-    new Translation2d((.67),(-.36)) //lining up to 2nd ball
-    //new Translation2d((1.04),(.43)), //grabing ball
-    //new Translation2d((1.04),(-.45)), //back down
-    //new Translation2d((1.54),(-.45)), //lining up
-    //new Translation2d((1.54),(.45)), //grabbing ball
-    //new Translation2d((1.54),(0)) //line up to finish
+    new Translation2d((.4),(.4)), //grabbing ball
+    new Translation2d((.65),(-.33)), //down
+    new Translation2d((.89),(-.25)), //below ball
+    new Translation2d((1.02),(.33)),//grab ball (actual)
+    new Translation2d((.92),(-.38)), //down
+    new Translation2d((1.47),(-.25)), //line up to finish
+    new Translation2d((1.420),(.35)), //3rd ball (nice)
+    new Translation2d((1.52),(-.1)) //line up to finish
    ),
- new Pose2d(((.68)), (.4), new Rotation2d(Math.PI/1)), //finish course 3
+ new Pose2d(((2.01)), (-.2), new Rotation2d(0)), //finish course 3 (nice)
  config);
 
     // Set Trejectory to Use for Autonomous Run
@@ -229,15 +167,11 @@ Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
 
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Ramsete Trajectory", generateRamseteCommand());
-    //m_chooser.setDefaultOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
     
     SmartDashboard.putData(m_chooser);
-   // SmartDashboard.putNumber(">> Left Drive Encoder", m_drivetrain.getLeftEncoderCount());
-   // SmartDashboard.putNumber(">> Right Drive Encoder", m_drivetrain.getRightEncoderCount());
-   // SmartDashboard.putNumber(">> Left Drive Distance", m_drivetrain.getLeftDistanceMeter());
-   // SmartDashboard.putNumber(">> Right Drive Distance", m_drivetrain.getRightDistanceMeter());
+
   }
 
   /**
