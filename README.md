@@ -22,7 +22,7 @@ We took two approaches to the autonomous portion of the Frantic Fetch Challenge:
 
 Because of the number of obstacles on this course, we felt that using separate forwards, backwards and turning commands would give us the precision needed to complete the course without incurring penalties.  The forward and backwards movement would allow us to use intakes on both sides of the robot and eliminate the need to turn 180 degrees after capturing each golf ball.
 
-### Autonomous
+### Ramsete Autonomous
 
 The Ramsete autonomous program that we used in previous challenges has a much smoother trajectory than our Directional Autonomous program.  But because the program requires the robot to move forward for the entire trajectory, the robot would need to turn 180 degrees after capturing each golf ball.  This lengthened the course for the robot and increased the risk of contact with obstacles.  The intake was moved forward on the robot to allow room to capture all 3 golf balls in front.
 
