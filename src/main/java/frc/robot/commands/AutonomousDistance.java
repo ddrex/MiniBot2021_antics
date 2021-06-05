@@ -6,19 +6,27 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Servo3;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+//import frc.robot.commands.ServoUp;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class AutonomousDistance extends SequentialCommandGroup {
   /**
    * Creates a new Autonomous Drive based on distance. This will drive out for a specified distance,
    * turn around and drive back.
    *
-   * @param drivetrain The drivetrain subsystem on which this command will run
+   * @param Servo The drivetrain subsystem on which this command will run
    */
-  public AutonomousDistance(Drivetrain drivetrain) {
+  public AutonomousDistance(Servo3 servo, Drivetrain drivetrain) {
     addCommands(
-        new DriveDistance(0.6, 0.3, drivetrain),
-        new TurnDegrees(-0.6, 1.2, drivetrain),//1.75 1.55
+
+       new DriveDistance(0.6, 0.3, drivetrain),
+        new GoUp(servo),
+        new WaitCommand(2),
+        new GoDown(servo));
+        
+        /*new TurnDegrees(-0.6, 1.2, drivetrain),//1.75 1.55
         new DriveDistance(0.6, 0.27, drivetrain),
        // Who's a good Robot, You are!!
         new TurnDegrees(-0.6, 0.52, drivetrain),//0.47
@@ -37,7 +45,7 @@ public class AutonomousDistance extends SequentialCommandGroup {
         
         new DriveDistance(-0.6, 0.25, drivetrain),
         new TurnDegrees(-0.6, 1.65, drivetrain),
-        new DriveDistance(-0.6, 0.33, drivetrain));//0.4
+        new DriveDistance(-0.6, 0.33, drivetrain));//0.4*/
 
 //Not super batteries
 /*new DriveDistance(0.6, 0.3, drivetrain),
