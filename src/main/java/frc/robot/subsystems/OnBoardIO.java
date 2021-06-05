@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class OnBoardIO extends SubsystemBase {
   private final DigitalInput m_buttonA = new DigitalInput(0);
-  private final DigitalOutput m_yellowLed = new DigitalOutput(3);
+  //private final DigitalOutput m_yellowLed = new DigitalOutput(3);
 
   // DIO 1
   private DigitalInput m_buttonB;
@@ -118,7 +118,7 @@ public class OnBoardIO extends SubsystemBase {
 
   /** Sets the yellow LED. */
   public void setYellowLed(boolean value) {
-    m_yellowLed.set(value);
+   // m_yellowLed.set(value);
   }
 
   @Override
