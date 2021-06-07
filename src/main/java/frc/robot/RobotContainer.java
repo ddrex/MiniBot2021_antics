@@ -35,6 +35,10 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import frc.robot.commands.GoDown;
+import frc.robot.commands.GoUp;
+import frc.robot.subsystems.Servo3;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -49,6 +53,11 @@ public class RobotContainer {
 
   // Assumes a gamepad plugged into channnel 0
   private final Joystick m_controller = new Joystick(0);
+
+///////-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+public final Servo3 servo = new Servo3();
+///////-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 
   // Create SmartDashboard chooser for autonomous routines
   private final SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -107,22 +116,39 @@ Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
   // Start at the origin facing the +X direction
    new Pose2d(0, 0, new Rotation2d(0)),
   List.of(
-    new Translation2d((.31),(0)),   //foward a bit
-    new Translation2d((.4),(.4)), //grabbing ball
-    new Translation2d((.65),(-.33)), //down
-    new Translation2d((.89),(-.25)), //below ball
-    new Translation2d((1.02),(.33)),//grab ball (actual)
-    new Translation2d((.92),(-.38)), //down
-    new Translation2d((1.47),(-.25)), //line up to finish
-    new Translation2d((1.420),(.35)), //3rd ball (nice)
+    // new Translation2d((.31),(0)),   //foward a bit
+    // new Translation2d((.4),(.4)), //grabbing ball
+    // new Translation2d((.65),(-.33)), //down
+    // new Translation2d((.89),(-.25)), //below ball
+    // new Translation2d((1.02),(.33)),//grab ball (actual)
+    // new Translation2d((.92),(-.38)), //down
+    // new Translation2d((1.47),(-.25)), //line up to finish
+    // new Translation2d((1.420),(.35)), //3rd ball (nice)
     new Translation2d((1.52),(-.1)) //line up to finish
    ),
  new Pose2d(((2.01)), (-.2), new Rotation2d(0)), //finish course 3 (nice)
  config);
 
+ Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(
+  // Start at the origin facing the +X direction
+  new Pose2d(0, 0, new Rotation2d(0)),
+  List.of(
+    //new Translation2d((.31),(0))   //foward a bit
+  /*  new Translation2d((.4),(.4)), //grabbing ball
+    new Translation2d((.65),(-.33)), //down
+    new Translation2d((.89),(-.25)), //below ball*/
+    new Translation2d((1.02),(.33))//grab ball (actual)
+   // new Translation2d((.92),(-.38)), //down
+   /* new Translation2d((1.47),(-.25)), //line up to finish
+    new Translation2d((1.420),(.35)), //3rd ball (nice)
+    new Translation2d((1.52),(-.1)) //line up to finish*/
+   ),
+ new Pose2d(((2.02)), (-.2), new Rotation2d(0)), //finish course 3 (nice)
+ config);
+
     // Set Trejectory to Use for Autonomous Run
     Trajectory exampleTrajectory = exampleTrajectory3;
-
+    Trajectory exampleTrajectory2 = exampleTrajectory4;
 
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
@@ -138,12 +164,29 @@ Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
 
     m_drivetrain.resetOdometry(exampleTrajectory.getInitialPose());
 
+    RamseteCommand ramseteCommand2 = new RamseteCommand(
+        exampleTrajectory2,
+        m_drivetrain::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter, DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics,
+        m_drivetrain::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVelLeft, 0, 0),
+        new PIDController(DriveConstants.kPDriveVelRight, 0, 0),
+        m_drivetrain::tankDriveVolts,
+        m_drivetrain);
+    m_drivetrain.resetOdometry(exampleTrajectory2.getInitialPose());
+
+
     // Set up a sequence of commands
     // First, we want to reset the drivetrain odometry
-    return new InstantCommand(() -> m_drivetrain.resetOdometry(exampleTrajectory.getInitialPose()), m_drivetrain)
+    return new InstantCommand(() -> m_drivetrain.resetOdometry(exampleTrajectory.getInitialPose()), m_drivetrain, servo)
         // next, we run the actual ramsete command
         .andThen(ramseteCommand)
-
+        .andThen(new GoUp(servo))
+        .andThen(ramseteCommand2)
+        .andThen(new GoDown(servo))
+        //.andThen(GoUp)
         // Finally, we make sure that the robot stops
         .andThen(new InstantCommand(() -> m_drivetrain.tankDriveVolts(0, 0), m_drivetrain));
   } 
@@ -160,14 +203,16 @@ Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
 
     // Example of how to use the onboard IO
-    Button onboardButtonA = new Button(m_onboardIO::getButtonAPressed);
-    onboardButtonA
-        .whenActive(new PrintCommand("Button A Pressed"))
-        .whenInactive(new PrintCommand("Button A Released"));
+    Button m_buttonB = new Button(m_onboardIO::getButtonBPressed);
+    m_buttonB
+    .whenPressed(new PrintCommand("Button B Pressed"))
+    .whileHeld(new GoUp(servo))
+    .whenReleased(new GoDown(servo))
+    .whenReleased(new PrintCommand("Button B Released"));
 
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Ramsete Trajectory", generateRamseteCommand());
-    m_chooser.addOption("Auto Routine Distance", new AutonomousDistance(m_drivetrain));
+    m_chooser.addOption("Auto Routine Distance", new AutonomousDistance(servo, m_drivetrain));
     m_chooser.addOption("Auto Routine Time", new AutonomousTime(m_drivetrain));
     
     SmartDashboard.putData(m_chooser);

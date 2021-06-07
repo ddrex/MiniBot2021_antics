@@ -34,7 +34,7 @@ public class Servo3 extends SubsystemBase {
   }
 
   public void Up(){
-m_arm.setAngle(180);
+m_arm.setAngle(270);
   }
 
   public void Down(){
