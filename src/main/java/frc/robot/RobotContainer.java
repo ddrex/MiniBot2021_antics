@@ -34,6 +34,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.GoDown;
 import frc.robot.commands.GoUp;
@@ -112,22 +113,55 @@ public final Servo3 servo = new Servo3();
     //******************* START COURSE 3 *********************
      
     //Start Course 3
-Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
+    
+Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(//Only 1
   // Start at the origin facing the +X direction
    new Pose2d(0, 0, new Rotation2d(0)),
   List.of(
-    // new Translation2d((.31),(0)),   //foward a bit
-    // new Translation2d((.4),(.4)), //grabbing ball
-    // new Translation2d((.65),(-.33)), //down
-    // new Translation2d((.89),(-.25)), //below ball
-    // new Translation2d((1.02),(.33)),//grab ball (actual)
-    // new Translation2d((.92),(-.38)), //down
-    // new Translation2d((1.47),(-.25)), //line up to finish
-    // new Translation2d((1.420),(.35)), //3rd ball (nice)
-    new Translation2d((1.52),(-.1)) //line up to finish
+    new Translation2d((.3),(.2)),   //going down
+    new Translation2d((.26),(.42)),
+    new Translation2d((.15),(.42)),
+    new Translation2d((.38),(.21)),
+    new Translation2d((.32),(.0))
    ),
- new Pose2d(((2.01)), (-.2), new Rotation2d(0)), //finish course 3 (nice)
+ new Pose2d(((-.08)), (0), new Rotation2d(0)), //1 
  config);
+Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(//Complete loop
+  // Start at the origin facing the +X direction
+   new Pose2d(0, 0, new Rotation2d(0)),
+  List.of(
+    new Translation2d((.35),(0)),   //going down
+    new Translation2d((.575),(-.2)), //5
+    new Translation2d((1.43),(-.2)), //6
+    new Translation2d((1.44),(.3)),//3
+    new Translation2d((1.3),(.28)),//going back
+    new Translation2d((1.1),(.26)) //2
+    //new Translation2d((1.47),(-.25)), //line up to finish
+    //new Translation2d((1.420),( .35)), //3rd ball (nice)
+    //new Translation2d((1.52),(-.1)) //line up to finish
+   ),
+ new Pose2d(((.3)), (.25), new Rotation2d(0)), //1 
+ config);
+ Trajectory exampleTrajectory5 = TrajectoryGenerator.generateTrajectory(//1,2,3
+  // Start at the origin facing the +X direction
+   new Pose2d(0, 0, new Rotation2d(0)),
+  List.of(
+    new Translation2d((.35),(0)),   //going down
+    new Translation2d((.575),(0)), //5
+    new Translation2d((1.43),(0)), //6
+    new Translation2d((1.48),(.42)),//3
+    new Translation2d((1.3),(.4)),//going back
+    new Translation2d((.8),(.4)) //2
+    //new Translation2d((1.47),(-.25)), //line up to finish
+    //new Translation2d((1.420),( .35)), //3rd ball (nice)
+    //new Translation2d((1.52),(-.1)) //line up to finish
+   
+   ),
+ new Pose2d(((.1)), (.44), new Rotation2d(0)), //1 
+ config);
+ System.out.print("\n*********************************************************\n");
+ System.out.print(exampleTrajectory5);
+ System.out.print("\n*********************************************************\n");
 
  Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(
   // Start at the origin facing the +X direction
@@ -147,8 +181,7 @@ Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
  config);
 
     // Set Trejectory to Use for Autonomous Run
-    Trajectory exampleTrajectory = exampleTrajectory3;
-    Trajectory exampleTrajectory2 = exampleTrajectory4;
+    Trajectory exampleTrajectory = exampleTrajectory5;
 
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
