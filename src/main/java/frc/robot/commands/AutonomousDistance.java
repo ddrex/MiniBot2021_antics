@@ -21,10 +21,10 @@ public class AutonomousDistance extends SequentialCommandGroup {
   public AutonomousDistance(Servo3 servo, Drivetrain drivetrain) {
     addCommands(
 
-       new DriveDistance(0.6, 0.3, drivetrain),
-        new GoUp(servo),
-        new WaitCommand(2),
-        new GoDown(servo));
+       new DriveDistance(-0.6, 0.3, drivetrain));
+        // new GoUp(servo),
+        // new WaitCommand(2),
+        // new GoDown(servo));
         
         /*new TurnDegrees(-0.6, 1.2, drivetrain),//1.75 1.55
         new DriveDistance(0.6, 0.27, drivetrain),

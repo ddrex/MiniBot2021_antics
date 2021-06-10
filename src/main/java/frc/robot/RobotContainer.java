@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.GoDown;
 import frc.robot.commands.GoUp;
 import frc.robot.subsystems.Servo3;
@@ -184,6 +185,7 @@ Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
         // next, we run the actual ramsete command
         .andThen(ramseteCommand)
         .andThen(new GoUp(servo))
+        .andThen(new AutonomousDistance(servo, m_drivetrain))
         .andThen(ramseteCommand2)
         .andThen(new GoDown(servo))
         //.andThen(GoUp)
@@ -202,13 +204,18 @@ Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(
     // is scheduled over it.
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
 
+    JoystickButton m_ButtonA = new JoystickButton(m_controller, 2);
+    m_ButtonA.whenPressed(new GoUp(servo));
+    JoystickButton m_ButtonB = new JoystickButton(m_controller, 3);
+    m_ButtonB.whenPressed(new GoDown(servo));
+
     // Example of how to use the onboard IO
-    Button m_buttonB = new Button(m_onboardIO::getButtonBPressed);
-    m_buttonB
-    .whenPressed(new PrintCommand("Button B Pressed"))
-    .whileHeld(new GoUp(servo))
-    .whenReleased(new GoDown(servo))
-    .whenReleased(new PrintCommand("Button B Released"));
+    // Button m_buttonB = new Button(m_onboardIO::getButtonBPressed);
+    // m_buttonB
+    // .whenPressed(new PrintCommand("Button B Pressed"))
+    // .whileHeld(new GoUp(servo))
+    // .whenReleased(new GoDown(servo))
+    // .whenReleased(new PrintCommand("Button B Released"));
 
     // Setup SmartDashboard options
     m_chooser.setDefaultOption("Ramsete Trajectory", generateRamseteCommand());
