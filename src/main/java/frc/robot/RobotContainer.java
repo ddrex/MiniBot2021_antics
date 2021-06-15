@@ -114,6 +114,15 @@ public final Servo3 servo = new Servo3();
     //******************* START COURSE 3 *********************
      
     //Start Course 3
+    Trajectory exampleTrajectoryEnd = TrajectoryGenerator.generateTrajectory(//Only 1
+// Start at the origin facing the +X direction
+ new Pose2d(-1.6, .3, new Rotation2d(0)),
+List.of(
+//  new Translation2d((1.5),(.1)),   //going down
+  //new Translation2d((-100),(-.3))
+    ),
+new Pose2d(((.1)), (.68), new Rotation2d(0)), //1 
+config);
     
 Trajectory exampleTrajectory3 = TrajectoryGenerator.generateTrajectory(//Only 1
   // Start at the origin facing the +X direction
@@ -131,17 +140,18 @@ Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(//Complet
   // Start at the origin facing the +X direction
    new Pose2d(0, 0, new Rotation2d(0)),
   List.of(
-    new Translation2d((.35),(0)),   //going down
+    new Translation2d((.4),(0)),   //going down
     new Translation2d((.575),(-.2)), //5
-    new Translation2d((1.43),(-.2)), //6
-    new Translation2d((1.44),(.3)),//3
-    new Translation2d((1.3),(.28)),//going back
-    new Translation2d((1.1),(.26)) //2
+    new Translation2d((1.45),(-.2)), //6
+    new Translation2d((1.45),(.15))//6
+    //new Translation2d((1.45),(.5))//3
+ // new Translation2d((1.3),(.39)),//going back
+    //new Translation2d((1.1),(.3)) //2
     //new Translation2d((1.47),(-.25)), //line up to finish
     //new Translation2d((1.420),( .35)), //3rd ball (nice)
     //new Translation2d((1.52),(-.1)) //line up to finish
    ),
- new Pose2d(((.3)), (.25), new Rotation2d(0)), //1 
+ new Pose2d(((.15)), (-.5), new Rotation2d(0)), //1 
  config);
  Trajectory exampleTrajectory5 = TrajectoryGenerator.generateTrajectory(//1,2,3
   // Start at the origin facing the +X direction
@@ -164,7 +174,7 @@ Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(//Complet
  System.out.print(exampleTrajectory5);
  System.out.print("\n*********************************************************\n");
 
- Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(
+ Trajectory exampleTrajectory6 = TrajectoryGenerator.generateTrajectory(
   // Start at the origin facing the +X direction
   new Pose2d(0, 0, new Rotation2d(0)),
   List.of(
@@ -172,17 +182,17 @@ Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(//Complet
   /*  new Translation2d((.4),(.4)), //grabbing ball
     new Translation2d((.65),(-.33)), //down
     new Translation2d((.89),(-.25)), //below ball*/
-    new Translation2d((1.02),(.33))//grab ball (actual)
+   // new Translation2d((1.9),(.1))//grab ball (actual)
    // new Translation2d((.92),(-.38)), //down
    /* new Translation2d((1.47),(-.25)), //line up to finish
     new Translation2d((1.420),(.35)), //3rd ball (nice)
     new Translation2d((1.52),(-.1)) //line up to finish*/
    ),
- new Pose2d(((2.02)), (-.2), new Rotation2d(0)), //finish course 3 (nice)
+ new Pose2d(((2.1)), (-.13), new Rotation2d(0)), //finish course 3 (nice)
  config);
 
     // Set Trejectory to Use for Autonomous Run
-    Trajectory exampleTrajectory = exampleTrajectory5;
+    Trajectory exampleTrajectory = exampleTrajectory6;
 
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
@@ -199,7 +209,7 @@ Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(//Complet
     m_drivetrain.resetOdometry(exampleTrajectory.getInitialPose());
 
     RamseteCommand ramseteCommand2 = new RamseteCommand(
-        exampleTrajectory2,
+        exampleTrajectoryEnd,
         m_drivetrain::getPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
         new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter, DriveConstants.kaVoltSecondsSquaredPerMeter),
@@ -209,18 +219,20 @@ Trajectory exampleTrajectory4 = TrajectoryGenerator.generateTrajectory(//Complet
         new PIDController(DriveConstants.kPDriveVelRight, 0, 0),
         m_drivetrain::tankDriveVolts,
         m_drivetrain);
-    m_drivetrain.resetOdometry(exampleTrajectory2.getInitialPose());
+    m_drivetrain.resetOdometry(exampleTrajectoryEnd.getInitialPose());
 
 
     // Set up a sequence of commands
     // First, we want to reset the drivetrain odometry
     return new InstantCommand(() -> m_drivetrain.resetOdometry(exampleTrajectory.getInitialPose()), m_drivetrain, servo)
         // next, we run the actual ramsete command
+        //.andThen(new GoDown(servo))
+        //.andThen(new GoUp(servo))
         .andThen(ramseteCommand)
         .andThen(new GoUp(servo))
         .andThen(new AutonomousDistance(servo, m_drivetrain))
-        .andThen(ramseteCommand2)
-        .andThen(new GoDown(servo))
+       .andThen(ramseteCommand2)
+       // .andThen(new GoDown(servo))
         //.andThen(GoUp)
         // Finally, we make sure that the robot stops
         .andThen(new InstantCommand(() -> m_drivetrain.tankDriveVolts(0, 0), m_drivetrain));
