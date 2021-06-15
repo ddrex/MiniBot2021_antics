@@ -19,9 +19,10 @@ public class AutonomousDistance extends SequentialCommandGroup {
    * @param Servo The drivetrain subsystem on which this command will run
    */
   public AutonomousDistance(Servo3 servo, Drivetrain drivetrain) {
-    addCommands(
-
-       new DriveDistance(-0.6, 0.3, drivetrain));
+    addCommands(              
+            new WaitCommand(.5),
+       new DriveDistance(-0.6, .2, drivetrain));
+       
         // new GoUp(servo),
         // new WaitCommand(2),
         // new GoDown(servo));
